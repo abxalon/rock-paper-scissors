@@ -1,35 +1,65 @@
 
-    // Create an array of options for compPlays selection
-    // Create userPlays variable from a case insensitive user input
-    // Create compPlays variable from selecting an option from the array through index pointing by a random rounded number
+    // Create a global array array with options for compPlays selection
+    // Create three scores, userScore, compScore, tiesScore, self explanatory
     const options = ["rock", "paper", "scissors"];
-    let userPlays = prompt("We are playing rock, paper, scissors. Your choice is:").toLocaleLowerCase();
-    let compPlays = options.at(Math.floor(Math.random()*3));
+    let userScore = 0;
+    let compScore = 0;
+    let tiesScore = 0;
 
     // Create a function that plays a single round, comparing results
-    function playRound(playerSelection, computerSelection){
-        if(playerSelection === computerSelection){
+    function playRound(){
+        // Declare local variables for the user's and the computer's move.
+        let userPlays = prompt("We are playing rock, paper, scissors. Your choice is:").toLocaleLowerCase();
+        let compPlays = options.at(Math.floor(Math.random()*3));
+
+        // Log player and computer moves
+        console.log("User played: " + userPlays);
+        console.log("Computar played: " + compPlays);
+
+        // Compare results and add results to global variable.
+        if(userPlays === compPlays){
             console.log("It's a tie!");
-        } else if(playerSelection === "rock" && computerSelection === "paper"){
+            tiesScore = tiesScore + 1;
+        } else if(userPlays === "rock" && compPlays === "paper"){
             console.log("You loose!, paper beats rock");
-        } else if(playerSelection === "paper" && computerSelection === "scissors") {
+            compScore = compScore + 1;
+        } else if(userPlays === "paper" && compPlays === "scissors") {
             console.log("You loose!, scissors beat paper");
-        } else if(playerSelection === "scissors" && computerSelection === "rock") {
+            compScore = compScore + 1;
+        } else if(userPlays === "scissors" && compPlays === "rock") {
             console.log("You loose!, rock beats scissors");
-        } else if(playerSelection === "paper" && computerSelection === "rock") {
+            compScore = compScore + 1;
+        } else if(userPlays === "paper" && compPlays === "rock") {
             console.log("You win!, paper beats rock");
-        } else if(playerSelection === "rock" && computerSelection === "scissors"){
+            userScore = userScore + 1;
+        } else if(userPlays === "rock" && compPlays === "scissors"){
             console.log("You win!, rock beats scissors");
-        } else if(playerSelection === "scissors" && computerSelection  === "paper"){
+            userScore = userScore + 1;
+        } else if(userPlays === "scissors" && compPlays  === "paper"){
             console.log("You win!, scissors beat paper");
+            userScore = userScore + 1;
         }
     }
 
-    // Invoke playRound function with user input and comp random selection
-    playRound(userPlays,compPlays);
-
-    // Log player and computer moves
-    console.log("User played: " + userPlays);
-    console.log("Computar played: " + compPlays);
+    // Declare game function with a loop counting from zero to five rounds.
+    // Invoke playRound function inside to get a single round of RPS
+    // Log result in console
+    // Log final result in console
+    function game(){
+        for(i = 0; i < 5; i++)
+        playRound();
+        console.log("User's score is: " + userScore);
+        console.log("Computer's score is: " + compScore);
+        if(compScore >= userScore && compScore >= tiesScore) {
+            console.log("The computer wins with " + compScore + " points!");
+        }
+        else if (userScore >= compScore && userScore >= tiesScore) {
+            console.log("The user wins with " + userScore + " points!");
+        }
+        else {
+            console.log("It's an overall tie!")
+        }
+    }
     
-    
+    // Invoke game function.
+    game();
